@@ -14,6 +14,7 @@
 ---
 
 ## Table of Contents
+
 - [Project Overview](#project-overview)
 - [Key Features](#key-features)
 - [Tech Stack](#tech-stack)
@@ -27,34 +28,41 @@
 - [Contributors](#contributors)
 - [License](#license)
 
+---
+
 ## Project Overview
 
 ProspectMiner AI is a full-stack lead generation application that scrapes Google Maps for business listings, enriches them with website data, and uses AI to score leads.
 
 **How it works:**
-1. User enters search query (e.g., "Dentists in Chicago") and lead limit
+
+1. User enters search query (e.g., `"Dentists in Chicago"`) and lead limit
 2. Backend creates a BullMQ job (in-memory queue)
 3. Worker scrapes Google Maps using Puppeteer
 4. Visits each website and extracts content
-5. Enriches leads with services, email patterns, and scores (High/Medium/Low)
+5. Enriches leads with services, email patterns, and scores (`High` / `Medium` / `Low`)
 6. Saves to MongoDB and displays results in real-time
+
+---
 
 ## Key Features
 
-### Core Features
-- ✅ **User Authentication** - JWT-based register/login system
-- ✅ **Google Maps Scraping** - Stealth Puppeteer scraping with mock data fallback
-- ✅ **Lead Enrichment** - Website crawling and AI-powered enrichment
-- ✅ **Lead Scoring** - High/Medium/Low scoring based on website quality
-- ✅ **Real-time Progress** - Live progress tracking during scraping
-- ✅ **CSV Export** - Export leads to CSV with one click
-- ✅ **Search History** - View and reload past searches
-- ✅ **Analytics Dashboard** - Score distribution and performance metrics
-- ✅ **Credit System** - 100 free credits on registration (1 credit = 1 lead)
+- ✅ **User Authentication** — JWT-based register/login system
+- ✅ **Google Maps Scraping** — Stealth Puppeteer scraping with mock data fallback
+- ✅ **Lead Enrichment** — Website crawling and AI-powered enrichment
+- ✅ **Lead Scoring** — High/Medium/Low scoring based on website quality
+- ✅ **Real-time Progress** — Live progress tracking during scraping
+- ✅ **CSV Export** — Export leads to CSV with one click
+- ✅ **Search History** — View and reload past searches
+- ✅ **Analytics Dashboard** — Score distribution and performance metrics
+- ✅ **Credit System** — 100 free credits on registration (1 credit = 1 lead)
 
-### Tech Stack
+---
 
-#### Frontend
+## Tech Stack
+
+### Frontend
+
 | Technology | Purpose |
 |---|---|
 | React 18 | UI framework |
@@ -63,7 +71,8 @@ ProspectMiner AI is a full-stack lead generation application that scrapes Google
 | Context API | State management |
 | Vite | Build tool |
 
-#### Backend
+### Backend
+
 | Technology | Purpose |
 |---|---|
 | Node.js 18+ | Runtime environment |
@@ -73,13 +82,17 @@ ProspectMiner AI is a full-stack lead generation application that scrapes Google
 | Puppeteer | Web scraping |
 | BullMQ | Job queue (in-memory) |
 
+---
+
 ## Prerequisites
 
 | Tool | Version | Download |
 |---|---|---|
 | Node.js | 18+ | https://nodejs.org |
 | MongoDB | 7.0+ | https://mongodb.com/try/download/community |
-| Git | latest | https://git-scm.com |
+| Git | Latest | https://git-scm.com |
+
+---
 
 ## Installation & Setup
 
@@ -90,25 +103,35 @@ git clone https://github.com/your-org/ProspectMiner-AI.git
 cd ProspectMiner-AI
 ```
 
- Install Backend Dependencies
+### 2. Install Backend Dependencies
+
+```bash
 cd server
 npm install
+```
 
-Install Frontend Dependencies
+### 3. Install Frontend Dependencies
 
+```bash
 cd ../client
 npm install
+```
 
-Set Up MongoDB
+### 4. Set Up MongoDB
 
+```bash
 # Create data directory
-mkdir C:\data\ProspectMiner AI
+mkdir "C:\data\ProspectMiner AI"
 
-# Start MongoDB (run in separate terminal)
-"C:\Program Files\MongoDB\Server\8.0\bin\mongod.exe" --dbpath C:\data\ProspectMiner AI
+# Start MongoDB (run in a separate terminal)
+"C:\Program Files\MongoDB\Server\8.0\bin\mongod.exe" --dbpath "C:\data\ProspectMiner AI"
+```
 
-Configure Environment Variables
+### 5. Configure Environment Variables
 
+Create a `.env` file inside the `server/` directory:
+
+```env
 PORT=5000
 
 # Database (Local MongoDB)
@@ -127,34 +150,48 @@ NODE_ENV=development
 # AI APIs (mock mode)
 GEMINI_API_KEY=YOUR_API_KEY
 GROQ_API_KEY=YOUR_API_KEY
+```
 
+---
 
-You need 4 terminals:
-Terminal 1: MongoDB
-# Start MongoDB locally
+## Running the Application
+
+You need **4 terminals** running simultaneously:
+
+**Terminal 1 — MongoDB**
+
+```bash
 "C:\Program Files\MongoDB\Server\8.0\bin\mongod.exe" --dbpath C:\data\db
+```
 
-Terminal 2: Backend API Server
+**Terminal 2 — Backend API Server**
+
+```bash
 cd server
 npm run dev
+# Runs on http://localhost:5000
+```
 
-Runs on http://localhost:5000
+**Terminal 3 — Worker Process**
 
-Terminal 3: Worker Process
-
+```bash
 cd server
 npm run worker
+```
 
-Terminal 4: Frontend
+**Terminal 4 — Frontend**
+
+```bash
 cd client
 npm run dev
+# Runs on http://localhost:5173
+```
 
-Runs on http://localhost:5173
+### Quick Start Script (PowerShell)
 
-Quick Start Script (PowerShell)
+Save as `start-app.ps1` in the project root:
 
-Save as start-app.ps1 in project root:
-
+```powershell
 # Start MongoDB
 Write-Host "Starting MongoDB..." -ForegroundColor Yellow
 Start-Process powershell -ArgumentList "-NoExit", "-Command", "& 'C:\Program Files\MongoDB\Server\8.0\bin\mongod.exe' --dbpath C:\data\db"
@@ -175,12 +212,16 @@ Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd client; npm ru
 
 Write-Host "✅ All services started!" -ForegroundColor Green
 Write-Host "📱 Frontend: http://localhost:5173" -ForegroundColor Cyan
-Write-Host "🔧 Backend: http://localhost:5000/api/health" -ForegroundColor Cyan
+Write-Host "🔧 Backend:  http://localhost:5000/api/health" -ForegroundColor Cyan
+```
 
-Project Structure
+---
 
-Client Structure
+## Project Structure
 
+### Client
+
+```
 client/
 ├── public/                 # Static assets
 ├── src/
@@ -200,14 +241,14 @@ client/
 │   │   ├── LeadCard/
 │   │   ├── ScoreBadge/
 │   │   └── ProtectedRoute/
-│   ├── pages/            # Page components
+│   ├── pages/             # Page components
 │   │   ├── LoginPage/
 │   │   ├── RegisterPage/
 │   │   ├── HomePage/
 │   │   ├── ResultsPage/
 │   │   ├── HistoryPage/
 │   │   └── AnalyticsPage/
-│   ├── hooks/            # Custom React hooks
+│   ├── hooks/             # Custom React hooks
 │   │   ├── useAuth.js
 │   │   ├── useScrape.js
 │   │   ├── useJobStatus.js
@@ -215,15 +256,15 @@ client/
 │   │   ├── useHistory.js
 │   │   ├── useAnalytics.js
 │   │   └── useCredits.js
-│   ├── contexts/         # React Context providers
+│   ├── contexts/          # React Context providers
 │   │   ├── AuthContext.jsx
 │   │   └── LeadsContext.jsx
-│   ├── utils/            # Helper functions
+│   ├── utils/             # Helper functions
 │   │   ├── exportCsv.js
 │   │   ├── formatDate.js
 │   │   ├── scoreColor.js
 │   │   └── validators.js
-│   ├── constants/        # App constants
+│   ├── constants/         # App constants
 │   │   ├── routes.js
 │   │   └── index.js
 │   ├── App.jsx
@@ -232,66 +273,100 @@ client/
 ├── package.json
 ├── vite.config.js
 └── index.html
+```
 
-Server Structure
+### Server
 
+```
 server/
 ├── src/
-│   ├── config/           # Configuration files
-│   │   ├── db.js        # MongoDB connection
-│   │   └── redis.js     # Redis connection (mock)
-│   ├── middleware/       # Express middleware
+│   ├── config/            # Configuration files
+│   │   ├── db.js          # MongoDB connection
+│   │   └── redis.js       # Redis connection (mock)
+│   ├── middleware/        # Express middleware
 │   │   ├── authMiddleware.js
 │   │   ├── errorHandler.js
 │   │   └── rateLimiter.js
-│   ├── models/          # Mongoose models
+│   ├── models/            # Mongoose models
 │   │   ├── User.js
 │   │   ├── Job.js
 │   │   └── Lead.js
-│   ├── modules/         # Feature modules
-│   │   ├── auth/        # Authentication
-│   │   ├── scrape/      # Scraping jobs
-│   │   ├── enrichment/  # Lead enrichment
-│   │   ├── history/     # Search history
-│   │   ├── analytics/   # Analytics
-│   │   └── credits/     # Credit system
-│   ├── queue/           # Job queue
+│   ├── modules/           # Feature modules
+│   │   ├── auth/          # Authentication
+│   │   ├── scrape/        # Scraping jobs
+│   │   ├── enrichment/    # Lead enrichment
+│   │   ├── history/       # Search history
+│   │   ├── analytics/     # Analytics
+│   │   └── credits/       # Credit system
+│   ├── queue/             # Job queue
 │   │   └── scrapeQueue.js
-│   ├── scraper/         # Web scraping
+│   ├── scraper/           # Web scraping
 │   │   ├── mapsScraper.js
 │   │   └── websiteCrawler.js
-│   └── utils/           # Utilities
+│   └── utils/             # Utilities
 │       ├── creditManager.js
 │       ├── ApiError.js
 │       └── textCleaner.js
-├── server.js            # Express app entry
-├── worker.js            # BullMQ worker entry
-├── .env                 # Environment variables
+├── server.js              # Express app entry
+├── worker.js              # BullMQ worker entry
+├── .env                   # Environment variables
 └── package.json
+```
 
+---
 
-API Endpoints
-Authentication
-Method	Endpoint	Description
-POST	/api/auth/register	Register new user
-POST	/api/auth/login	Login user
-GET	/api/auth/me	Get current user
+## API Endpoints
 
-Scraping
-Method	Endpoint	Description
-POST	/api/scrape	Start scraping job
-GET	/api/scrape/status/:jobId	Get job status
-GET	/api/scrape/leads/:jobId	Get leads for job
+### Authentication
 
-History
-Method	Endpoint	Description
-GET	/api/history	Get user's past jobs
-DELETE	/api/history/:jobId	Delete job and leads
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/auth/register` | Register new user |
+| POST | `/api/auth/login` | Login user |
+| GET | `/api/auth/me` | Get current user |
 
-Analytics
-Method	Endpoint	Description
-GET	/api/analytics/summary	Get analytics data
-Credits
-Method	Endpoint	Description
-GET	/api/credits/balance	Get credit balance
-GET	/api/credits/usage	Get credit usage history
+### Scraping
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/scrape` | Start scraping job |
+| GET | `/api/scrape/status/:jobId` | Get job status |
+| GET | `/api/scrape/leads/:jobId` | Get leads for job |
+
+### History
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/history` | Get user's past jobs |
+| DELETE | `/api/history/:jobId` | Delete job and leads |
+
+### Analytics
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/analytics/summary` | Get analytics data |
+
+### Credits
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/credits/balance` | Get credit balance |
+| GET | `/api/credits/usage` | Get credit usage history |
+
+---
+
+## Troubleshooting
+
+> Common issues and fixes will be documented here.
+
+---
+
+## Contributors
+
+Saurav Kumar https://github.com/SauravKumar2015
+
+---
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE).
