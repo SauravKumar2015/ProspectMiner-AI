@@ -160,8 +160,15 @@ You need **4 terminals** running simultaneously:
 
 **Terminal 1 — MongoDB**
 
+
+**Create the Directory 
+```
+New-Item -ItemType Directory -Force -Path "C:\data\ProspectMiner-AI"
+
+New-Item -ItemType Directory -Force -Path "C:\data\db"
+```
 ```bash
-"C:\Program Files\MongoDB\Server\8.0\bin\mongod.exe" --dbpath C:\data\db
+& "C:\Program Files\MongoDB\Server\8.0\bin\mongod.exe" --dbpath "C:\data\ProspectMiner-AI"
 ```
 
 **Terminal 2 — Backend API Server**
